@@ -2,6 +2,22 @@
 
 
 
+class Router{
+	constructor(props) {	
+	  this.hashChange = window.addEventListener("hashchange",this.test,true);
+	  this.init();
+	};
+
+	test(e) {
+		console.log(e)
+	};
+
+	init() {
+		window.location.hash = "home";
+	};
+}
+
+let router = new Router();
 
 class EasyRequest extends XMLHttpRequest{
 	constructor(target) {
@@ -55,23 +71,23 @@ class ApiCall extends EasyRequest {
 
 
 
-//let dribbble = new ApiCall("https://newsapi.org/v2/top-headlines?country=us&apiKey=0edf421b40a64d2fa263ad513a586ddc");
+let dribbble = new ApiCall("https://newsapi.org/v2/top-headlines?country=us&apiKey=0edf421b40a64d2fa263ad513a586ddc");
 
 
-// dribbble
-// 	.then((res) => {
-// 		let data = JSON.parse(res);
-// 		return data.articles;
-// 	})
-// 	.then((res) =>{
+dribbble
+	.then((res) => {
+		let data = JSON.parse(res);
+		return data.articles;
+	})
+	.then((res) =>{
 		
-// 		return "bla";
-// 	}).then((res) => {
-// 		console.log(res);
-// 	})
-// 	.catch((err) => {
-// 		throw new Error("Error: " + err);
-// 	});
+		console.log(res);
+	}).then((res) => {
+		console.log(res);
+	})
+	.catch((err) => {
+		throw new Error("Error: " + err);
+	});
 
 
 // // lets do something with data
@@ -125,29 +141,6 @@ class RenderEngine extends EasyRequest{
 const engine = new RenderEngine  ();
 
 engine.render();
-
-
-
-//build single article
-// function createArticle(a) {
-// 	let body = document.body;
-// 	let img = new Image();
-// 	img.src = a.urlToImage
-// 	let articleBody = document.createElement("article");
-// 	articleBody.data = a;
-// 	let titleElement = document.createElement("h1");
-// 	let titleTextNode = document.createTextNode(a.title);
-// 	let rmBtn = document.createElement("a");
-// 	rmBtn.href = "#/" + a.title;
-// 	rmBtn.innerHTML = "Read more";
-// 	titleElement.appendChild(titleTextNode);
-// 	articleBody.appendChild(img).appendChild(titleElement).appendChild(rmBtn);
-// 	body.appendChild(articleBody);
-// };
-
-
-
-
 
 
 //TODO
