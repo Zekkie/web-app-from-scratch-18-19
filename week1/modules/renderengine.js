@@ -7,7 +7,7 @@ class RenderEngine extends EasyRequest{
 	constructor() {
 		super('./templates/home.html');
 	  this.template = '';
-	  this.data = [{title:"Zekkie", content:"blaaa"}];
+	  this.data = [{title:"Zekkie", content:"blaaa", caption: "Lorem tripsum"}];
 	  this.documentTarget = document.body;
 	};
 
@@ -24,7 +24,6 @@ class RenderEngine extends EasyRequest{
 
 	buildDom(template) {
 		let tempStr = '';
-
 		this.data.forEach((d) => {
 			tempStr += this.magicReplacer(template, d);
 		});
@@ -34,7 +33,7 @@ class RenderEngine extends EasyRequest{
 	render() {
 		this.then((res) => {
 			this.buildDom(res);
-			//console.log(res)
+			console.log(this)
 		});
 	};
 };

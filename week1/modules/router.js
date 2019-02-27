@@ -16,20 +16,18 @@ class Router{
 
 	findMatch(hash) {
 		
-		let route;
-
-		route = this.routes.find((r) => {
-			return r.route.indexOf(hash) > -1;
-		})
-			
-		if(!route) {
-			route = this.routes.find((r) => {
-				return r.route === "*"
-			});
-		};
-
-		console.log(route);
-		};
+		if(hash.length > 1) {
+			let pattern = '\/(.*)|\/(.*?)\/';
+			let match = hash.match(pattern);
+			console.log(match);
+		} else {
+			console.log("short hash")
+		}
+		
+		
+		
+		
+	};
 	
 
 	route(route) {
