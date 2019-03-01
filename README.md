@@ -1,5 +1,9 @@
 # WAFS
 
+## Demo
+[Here](https://zekkie.github.io/web-app-from-scratch-18-19/)
+
+
 ## API
  I'm using the api of the newsapi. Funny enough that is the actual name of the api. 
  [Can be found here](https://newsapi.org)
