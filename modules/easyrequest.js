@@ -13,7 +13,6 @@ class EasyRequest extends XMLHttpRequest{
 	};
 
 	executor(resolve, reject) {
-		this.open("GET", this.target, true);
 		this.onload = () => {
 			if(this.status >= 200 && this.status < 400) {
 				resolve(this.response);
@@ -24,8 +23,7 @@ class EasyRequest extends XMLHttpRequest{
 
 		this.onerror = () => {
 			reject(this.response);
-		};
-		this.send();
+		};	
 	};
 
 	then(succes,fail) {

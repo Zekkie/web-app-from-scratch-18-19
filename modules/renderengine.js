@@ -1,14 +1,13 @@
-'use-strict'
-
 import EasyRequest from './easyrequest.js';
 
 class RenderEngine extends EasyRequest{
 
 	constructor() {
-		super('./templates/home.html');
+		super();
 	  this.template = '';
 	  this.data = [];
-	  this.documentTarget = document.body;
+	  this.documentTarget = document.getElementById("view");
+
 	};
 
 	magicReplacer(text, d) {
@@ -16,7 +15,7 @@ class RenderEngine extends EasyRequest{
 		let stripedTemplate = text;
 		while(regex.test(stripedTemplate)) {
 			let found = stripedTemplate.match(regex);
-			stripedTemplate = stripedTemplate.replace(found[0], d[found[1]]);
+			stripedTemplate = stripedTemplate.replace(found[0], d[found[1]]? d[found[1]] : "" );
 		};
 		return stripedTemplate;
 	};
@@ -25,15 +24,19 @@ class RenderEngine extends EasyRequest{
 	buildDom(template) {
 		let tempStr = '';
 		this.data.forEach((d) => {
+			console.log(d);
 			tempStr += this.magicReplacer(template, d);
 		});
-		document.body.insertAdjacentHTML('afterbegin',tempStr);
+		this.documentTarget.insertAdjacentHTML('afterbegin',tempStr);
 	}
 
-	render() {
+	render(data) {
+		super.open("GET","./templates/home.html",true);
+		super.send()
+		this.data = data;
+		console.log(data);
 		this.then((res) => {
 			this.buildDom(res);
-			console.log(this)
 		});
 	};
 };

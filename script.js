@@ -1,31 +1,8 @@
 'use strict';
 
-import Router from './modules/router.js';
+import App from './modules/app.js';
 
-import RenderEngine from "./modules/renderengine.js";
-
-const router = new Router("/");
-
-
-router
-	.route({template:'./templates/home.html', route:'/'})
-	.route({template:'./templates/article.html', route:'/article/:id'})
-	.route({template: './templates/fourohfour.html', route: '*'});
-
-
-
-
-const engine = new RenderEngine();
-
-engine.render()
-
-
-
-
-
-
-
-console.log(engine);
+const newsApp = new App();
 
 
 
