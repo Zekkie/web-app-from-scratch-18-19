@@ -2,15 +2,11 @@
 
 import Router from './modules/router.js';
 
-import RenderEngine from './modules/renderengine.js';
+import RenderEngine from "./modules/renderengine.js";
+
+const router = new Router("/");
 
 
-const router = new Router();
-
-const rEngine = new RenderEngine();
-
-
-rEngine.render();
 router
 	.route({template:'./templates/home.html', route:'/'})
 	.route({template:'./templates/article.html', route:'/article/:id'})
@@ -19,6 +15,9 @@ router
 
 
 
+const engine = new RenderEngine();
+
+engine.render()
 
 
 
@@ -26,9 +25,7 @@ router
 
 
 
-
-
-
+console.log(engine);
 
 
 

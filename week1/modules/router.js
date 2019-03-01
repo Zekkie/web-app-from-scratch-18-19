@@ -1,8 +1,10 @@
 class Router{
-	constructor(props) {	
+	constructor(initial) {	
 	  this.hashChange = window.addEventListener("hashchange",this.handleRoute.bind(this),true);
-	  this.init();
+	  
 	  this.routes = [];
+	  this.initialRoute = initial;
+	  this.init();
 	};
 
 	hash() {
@@ -16,13 +18,23 @@ class Router{
 
 	findMatch(hash) {
 		
-		if(hash.length > 1) {
-			let pattern = '\/(.*)|\/(.*?)\/';
-			let match = hash.match(pattern);
-			console.log(match);
-		} else {
-			console.log("short hash")
-		}
+
+		if(hash.length === 1 && hash === "/") {
+			console.log("home");
+		}else{
+			const pathDeconstructed = hash.split("/");
+
+			let matches = [];
+
+			pathDeconstructed.forEach((p) => {
+				matches = this.routes.find((r) => {
+					 return console.log(r.route.indexOf(p) > 0);
+				});
+			});
+
+			console.log(matches);
+
+		};
 		
 		
 		
@@ -41,7 +53,7 @@ class Router{
 	}
 
 	init() {
-		window.location.hash = "/";
+		window.location.hash = this.initialRoute;
 	};
 };
 

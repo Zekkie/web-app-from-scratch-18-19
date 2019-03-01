@@ -7,7 +7,7 @@ class RenderEngine extends EasyRequest{
 	constructor() {
 		super('./templates/home.html');
 	  this.template = '';
-	  this.data = [{title:"Zekkie", content:"blaaa", caption: "Lorem tripsum"}];
+	  this.data = [];
 	  this.documentTarget = document.body;
 	};
 
