@@ -6,41 +6,33 @@ class ApiCall extends EasyRequest {
 	constructor() {
 	  super();
 	  this.data = [];
+	  this.key = "apiKey=0edf421b40a64d2fa263ad513a586ddc";
+	  this.base = "https://newsapi.org/v2/";
+	  this.filter = null;
 	};
 
-	init() {
-		return this.then(res => {
-			
-			return JSON.parse(res);
-		}).then(res => {
-			return res.articles;
-		}).then(res => {
-			return this.sanitize(res)
-		})
-	};
+
 
 	sanitize(data) {
-		let node = {};
-		let cleanList = []
 
-		data.map(d => {
-			cleanList.push({
-				title: d.title,
-				caption: d.description,
-				content: d.content,
-				author: d.author,
-				published: d.publishedAt,
-				image: d.urlToImage
-			});
-		});
-		this.data = cleanList;
-		return this.data;
+		const saneData = data.map(this.filter);
+		console.log(saneData);
 	};
 
-	search(query) {
-		super.open("GET",`https://newsapi.org/v2/everything?q=${query}&sortBy=publishedAt&apiKey=0edf421b40a64d2fa263ad513a586ddc`,true);
+
+	buildUrl(endpoint) {
+		return this.base+endpoint+"?"+this.key;
+	}
+
+	search(endpoint,filter) {
+		this.filter = filter;
+		super.open("GET",this.buildUrl(endpoint),true);
 		super.send();
-		return this.init()
+
+		this.then(r=>{
+			this.sanitize(JSON.parse(r)[endpoint]);
+		});
+		
 	};
 
 };

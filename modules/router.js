@@ -1,3 +1,10 @@
+import RenderEngine from "./renderengine.js";
+import ApiCaller from "./apicaller.js";
+
+const renderer = new RenderEngine();
+const api = new ApiCaller();
+
+
 class Router{
 	constructor(initial) {	
 	  this.hashChange = window.addEventListener("hashchange",this.handleRoute.bind(this),true);
@@ -19,29 +26,28 @@ class Router{
 	}
 
 	findMatch(hash) {
-		console.log(hash)
+		const keys = hash.split("/")
+		const dir = keys[0];
 
-		if(hash.length === 1 && hash === "/") {
-			console.log("home");
-		}else{
-			const pathDeconstructed = hash.split("/");
 
-			let matches = [];
+		let route = this.routes.find((i) => {
+			return i.route === dir;
+		})
 
-			
+		if(!route) {
+			route = this.routes.find((i) => {
+				return i.route === "*";
+			});
 
-			const o = this.routes.find((i) => {
+			console.log(renderer)
+			renderer
+				.setTemplate(route.template)
+				.render();
+		}else {
+			api.search(route.endpoint,route.filter);
+		}
 
-				return i.route === pathDeconstructed[0];
-			})
 
-			console.log(o)
-
-		};
-		
-		
-		
-		
 	};
 	
 
@@ -49,12 +55,10 @@ class Router{
 		if(typeof route != "object") {
 			console.error("Type of input is "+typeof route+". Expected an object");
 		}else {
-				this.routes.push(route);
-				
+			this.routes.push(route);
 		}
 		return this;
 	}
-
 	init() {
 		window.location.hash = this.initialRoute;
 	};

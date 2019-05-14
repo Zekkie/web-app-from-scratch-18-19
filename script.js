@@ -12,5 +12,18 @@ const router = new Router("home");
 router
 	.route({
 		route: "home",
-		template:"home.html"
+		template:"home.html",
+		endpoint:"sources",
+		filter: (o) => {
+			return {
+				id: o.id,
+				description: o.description,
+				title: o.name,
+				language: o.language
+			}
+		}
+	})
+	.route({
+		route:"*",
+		template:"404.html"
 	})

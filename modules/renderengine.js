@@ -7,7 +7,8 @@ class RenderEngine extends EasyRequest{
 	  this.template = '';
 	  this.data = [];
 	  this.documentTarget = document.getElementById("view");
-
+	  this.dir = "./templates/"
+	  this.templateRoute = "";
 	};
 
 	magicReplacer(text, d) {
@@ -21,23 +22,41 @@ class RenderEngine extends EasyRequest{
 	};
 
 
-	buildDom(template) {
+	buildDataRoute(data,template) {
 		let tempStr = '';
-		this.data.forEach((d) => {
-			console.log(d);
+		data.forEach((d) => {
 			tempStr += this.magicReplacer(template, d);
 		});
-		this.documentTarget.insertAdjacentHTML('afterbegin',tempStr);
+		this.documentTarget.innerHTML('afterbegin',tempStr);
 	}
 
+	buildRoute(template) {
+		this.documentTarget.innerHTML = template;
+	};
+
+	buildDom(template) {
+		if(this.data) {
+			this.buildDataRoute(this.data,template)
+		}else {
+			this.buildRoute(template)
+		}
+	}
+
+	setTemplate(temp) {
+		this.templateRoute = this.dir + temp;
+		return this;
+	} 
+
 	render(data) {
-		super.open("GET","./templates/home.html",true);
+		super.open("GET",this.templateRoute,true);
 		super.send()
 		this.data = data;
-		console.log(data);
-		this.then((res) => {
+		
+			this.then((res) => {
 			this.buildDom(res);
-		});
+			});
+		
+		
 	};
 };
 
