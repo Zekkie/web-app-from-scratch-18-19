@@ -38,7 +38,7 @@ class ApiCall extends EasyRequest {
 	};
 
 	search(query) {
-		super.open("GET",`https://newsapi.org/v2/everything?q=${query}&from=2019-02-01&sortBy=publishedAt&apiKey=0edf421b40a64d2fa263ad513a586ddc`,true);
+		super.open("GET",`https://newsapi.org/v2/everything?q=${query}&sortBy=publishedAt&apiKey=0edf421b40a64d2fa263ad513a586ddc`,true);
 		super.send();
 		return this.init()
 	};

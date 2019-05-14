@@ -12,12 +12,14 @@ class Router{
 	}
 
 	handleRoute(e) {
-		const param = this.hash();		
+		const param = this.hash();	
+
+
 		this.findMatch(param);
 	}
 
 	findMatch(hash) {
-		
+		console.log(hash)
 
 		if(hash.length === 1 && hash === "/") {
 			console.log("home");
@@ -26,13 +28,14 @@ class Router{
 
 			let matches = [];
 
-			pathDeconstructed.forEach((p) => {
-				matches = this.routes.find((r) => {
-					 return console.log(r.route.indexOf(p) > 0);
-				});
-			});
+			
 
-			console.log(matches);
+			const o = this.routes.find((i) => {
+
+				return i.route === pathDeconstructed[0];
+			})
+
+			console.log(o)
 
 		};
 		
