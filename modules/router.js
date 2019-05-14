@@ -7,11 +7,18 @@ const api = new ApiCaller();
 
 class Router{
 	constructor(initial) {	
-	  this.hashChange = window.addEventListener("hashchange",this.handleRoute.bind(this),true);
-	  
 	  this.routes = [];
 	  this.initialRoute = initial;
-	  this.init();
+	  if(!window.location.hash){
+	  	console.log(window.location.hash)
+	  	window.location.hash = this.initialRoute;
+	  }
+	  
+
+	  window.onload = () => {
+	  	this.handleRoute()
+	  	this.hashChange = window.addEventListener("hashchange",this.handleRoute.bind(this),true);
+	  }
 	};
 
 	hash() {
@@ -19,35 +26,35 @@ class Router{
 	}
 
 	handleRoute(e) {
+		if(e) {
+			this.eventFired = true;
+		}
 		const param = this.hash();	
-
-
 		this.findMatch(param);
 	}
 
 	findMatch(hash) {
 		const keys = hash.split("/")
 		const dir = keys[0];
-
-
+		const id = keys[1]
 		let route = this.routes.find((i) => {
 			return i.route === dir;
 		})
-
 		if(!route) {
 			route = this.routes.find((i) => {
 				return i.route === "*";
 			});
-
-			console.log(renderer)
 			renderer
 				.setTemplate(route.template)
 				.render();
 		}else {
-			api.search(route.endpoint,route.filter);
+			api.search(route.endpoint,route.filter,id)
+				.then(i => {
+				renderer
+					.setTemplate(route.template)
+					.render(i)
+			})
 		}
-
-
 	};
 	
 
@@ -59,9 +66,6 @@ class Router{
 		}
 		return this;
 	}
-	init() {
-		window.location.hash = this.initialRoute;
-	};
 };
 
 export default Router;

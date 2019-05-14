@@ -24,6 +24,19 @@ router
 		}
 	})
 	.route({
+		route: "articles",
+		template: "articles.html",
+		endpoint:"everything?sources=",
+		filter: (o) => {
+			return {
+				url:o.url,
+				image: o.urlToImage,
+				title: o.title,
+				content: o.content
+			}
+		}
+	})
+	.route({
 		route:"*",
 		template:"404.html"
 	})

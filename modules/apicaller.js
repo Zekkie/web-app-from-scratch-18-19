@@ -16,21 +16,37 @@ class ApiCall extends EasyRequest {
 	sanitize(data) {
 
 		const saneData = data.map(this.filter);
-		console.log(saneData);
+		return saneData;
 	};
 
 
-	buildUrl(endpoint) {
+	buildUrl(endpoint,id) {
+		if(id) {
+			return this.base+endpoint+id+"&"+this.key
+		}
 		return this.base+endpoint+"?"+this.key;
 	}
 
-	search(endpoint,filter) {
+	findDataArray(object) {
+		const keys = Object.keys(object);
+		for(let i = 0; i < keys.length;i++) {
+			if(object[keys[i]].push) {
+				return object[keys[i]];
+				break;
+			}
+		}
+	}
+
+	search(endpoint,filter,id) {
 		this.filter = filter;
-		super.open("GET",this.buildUrl(endpoint),true);
+		super.open("GET",this.buildUrl(endpoint,id),true);
 		super.send();
 
-		this.then(r=>{
-			this.sanitize(JSON.parse(r)[endpoint]);
+		return this.then(r=>{
+			const object = JSON.parse(r);
+			const data = this.findDataArray(object);
+			const saneData = this.sanitize(data);
+			return saneData;
 		});
 		
 	};

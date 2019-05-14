@@ -27,7 +27,7 @@ class RenderEngine extends EasyRequest{
 		data.forEach((d) => {
 			tempStr += this.magicReplacer(template, d);
 		});
-		this.documentTarget.innerHTML('afterbegin',tempStr);
+		this.documentTarget.innerHTML = tempStr;
 	}
 
 	buildRoute(template) {
@@ -51,12 +51,10 @@ class RenderEngine extends EasyRequest{
 		super.open("GET",this.templateRoute,true);
 		super.send()
 		this.data = data;
-		
-			this.then((res) => {
+		console.log(data);
+		this.then((res) => {
 			this.buildDom(res);
-			});
-		
-		
+		});
 	};
 };
 
