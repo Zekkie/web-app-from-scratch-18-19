@@ -32,7 +32,7 @@ router
 				url:o.url,
 				image: o.urlToImage,
 				title: o.title,
-				content: o.content
+				content: o.content.replace(/ *\[[^)]*\] */g,"")
 			}
 		}
 	})
