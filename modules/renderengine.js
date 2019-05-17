@@ -36,9 +36,9 @@ class RenderEngine extends EasyRequest{
 
 	buildDom(template) {
 		if(this.data) {
-			this.buildDataRoute(this.data,template)
+			this.buildDataRoute(this.data,template);
 		}else {
-			this.buildRoute(template)
+			this.buildRoute(template);
 		}
 	}
 
@@ -47,13 +47,14 @@ class RenderEngine extends EasyRequest{
 		return this;
 	} 
 
-	render(data) {
+	render(data,cb) {
 		super.open("GET",this.templateRoute,true);
-		super.send()
+		super.send();
 		this.data = data;
 		console.log(data);
 		this.then((res) => {
 			this.buildDom(res);
+			cb();
 		});
 	};
 };

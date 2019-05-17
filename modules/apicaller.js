@@ -14,9 +14,7 @@ class ApiCall extends EasyRequest {
 
 
 	sanitize(data) {
-
-		const saneData = data.map(this.filter);
-		return saneData;
+		return data.map(this.filter);
 	};
 
 
@@ -41,12 +39,9 @@ class ApiCall extends EasyRequest {
 		this.filter = filter;
 		super.open("GET",this.buildUrl(endpoint,id),true);
 		super.send();
-
 		return this.then(r=>{
 			const object = JSON.parse(r);
-			const data = this.findDataArray(object);
-			const saneData = this.sanitize(data);
-			return saneData;
+			return this.sanitize(this.findDataArray(object));
 		});
 		
 	};

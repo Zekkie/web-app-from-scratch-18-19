@@ -13,14 +13,29 @@ html,body{
 	justify-content: center;
 }
 
-a{
+.source,section{
 	display: flex;
-	background: grey;
 	width: calc(1920px / 7);
-	flex-direction: column;
 	padding:20px;
 	margin: 5px;
 	background: #ecf0f1;
 	color:#34495e;
+	text-decoration: none;
+	flex-direction: column;
+}
+
+section .content{
+	flex-grow: 2;
+}
+
+.content img {
+	width: 100%;
+}
+
+section a {
+	padding:20px;
+	background: #e74c3c;
+	color:#ffffff;
+	text-align: center;
 	text-decoration: none;
 }
