@@ -39,3 +39,12 @@ section a {
 	text-align: center;
 	text-decoration: none;
 }
+
+#ui {
+	position: fixed;
+	transition: 0.5s;
+}
+
+.hide {
+	transform: translateY(-50px);
+}

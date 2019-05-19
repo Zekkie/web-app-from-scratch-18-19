@@ -51,7 +51,6 @@ class RenderEngine extends EasyRequest{
 		super.open("GET",this.templateRoute,true);
 		super.send();
 		this.data = data;
-		console.log(data);
 		this.then((res) => {
 			this.buildDom(res);
 			cb();

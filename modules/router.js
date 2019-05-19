@@ -14,7 +14,6 @@ class Router{
 	  this.initialRoute = initial;
 	  this.loadInterval = null;
 	  if(!window.location.hash){
-	  	console.log(window.location.hash);
 	  	window.location.hash = this.initialRoute;
 	  };
 	  window.onload = () => {
@@ -33,13 +32,15 @@ class Router{
 
 		if(window.location.hash !== "#home") {
 			filter.destroy();
+			filter.hide();
+		}else if(window.location.hash === "#home") {
+			filter.show();
 		}
 		const param = this.hash();	
 		this.findMatch(param);
 	};
 
 	showLoader() {
-		console.log("check")
 		if(!document.querySelector("#loader")) {
 			document.querySelector("#view").innerHTML = `
 				<div id="loader">
